@@ -1,10 +1,10 @@
 declare global {
-  var uploadStateFlag: () => void;
-  var clearAllFlags: () => void;
-  var updateFlagStateSelect: () => void;
+  var uploadStateFlagFunction: () => void;
+  var clearAllFlagsFunction: () => void;
+  var updateFlagStateSelectFunction: () => void;
 }
 
-const updateFlagStateSelect = (): void => {
+const updateFlagStateSelectFunction = (): void => {
   const select = document.getElementById("flagStateSelect") as HTMLSelectElement;
   if (!select) return;
 
@@ -15,21 +15,21 @@ const updateFlagStateSelect = (): void => {
     const option = document.createElement("option");
     option.value = state.i.toString();
     option.textContent = `${state.i}: ${state.name}`;
-    if (state.flag) option.textContent += " ✓"; // Show checkmark if has flag
+    if (state.flag) option.textContent += " ✓";
     select.appendChild(option);
   });
 };
 
-const uploadStateFlag = (): void => {
+const uploadStateFlagFunction = (): void => {
   const stateSelect = document.getElementById("flagStateSelect") as HTMLSelectElement;
   const imageInput = document.getElementById("flagImageInput") as HTMLInputElement;
 
-  if (!stateSelect.value) {
+  if (!stateSelect?.value) {
     tip("Please select a state", false, "error");
     return;
   }
 
-  if (!imageInput.files || !imageInput.files[0]) {
+  if (!imageInput?.files?.[0]) {
     tip("Please select an image file", false, "error");
     return;
   }
@@ -37,20 +37,20 @@ const uploadStateFlag = (): void => {
   const reader = new FileReader();
   reader.onload = (e) => {
     const dataURL = e.target?.result as string;
-    const stateId = parseInt(stateSelect.value);
+    const stateId = parseInt(stateSelect.value, 10);
 
     pack.states[stateId].flag = dataURL;
     drawFlags();
 
     tip(`Flag uploaded for ${pack.states[stateId].name}!`, true, "success");
-    imageInput.value = ""; // Clear input
-    updateFlagStateSelect(); // Update select dengan checkmark
+    imageInput.value = "";
+    updateFlagStateSelectFunction();
   };
 
   reader.readAsDataURL(imageInput.files[0]);
 };
 
-const clearAllFlags = (): void => {
+const clearAllFlagsFunction = (): void => {
   pack.states.forEach((state) => {
     if (state.i && !state.removed) {
       state.flag = undefined;
@@ -59,9 +59,14 @@ const clearAllFlags = (): void => {
 
   drawFlags();
   tip("All flags cleared!", true, "success");
-  updateFlagStateSelect();
+  updateFlagStateSelectFunction();
 };
 
-window.uploadStateFlag = uploadStateFlag;
-window.clearAllFlags = clearAllFlags;
-window.updateFlagStateSelect = updateFlagStateSelect;
+window.uploadStateFlagFunction = uploadStateFlagFunction;
+window.clearAllFlagsFunction = clearAllFlagsFunction;
+window.updateFlagStateSelectFunction = updateFlagStateSelectFunction;
+
+// Shortcuts for HTML onclick
+window.uploadStateFlag = uploadStateFlagFunction;
+window.clearAllFlags = clearAllFlagsFunction;
+window.updateFlagStateSelect = updateFlagStateSelectFunction;
