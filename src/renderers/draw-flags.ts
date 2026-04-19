@@ -1,5 +1,4 @@
 import { minmax, rn } from "../utils";
-import type { State } from "../modules/states-generator";
 
 declare global {
   var drawFlags: () => void;
@@ -16,7 +15,6 @@ const flagsRenderer = (): void => {
   TIME && console.time("drawFlags");
   const { states } = pack;
 
-  // Filter states yang memiliki flag dan tidak removed
   const validStates = states.filter(
     (s) => s.i && !s.removed && s.flag && s.flag.length > 0,
   );
@@ -26,7 +24,6 @@ const flagsRenderer = (): void => {
     return;
   }
 
-  // Hitung ukuran flag dinamis berdasarkan jumlah state dan ukuran peta
   const getFlagSize = (): number => {
     const startSize = minmax((graphHeight + graphWidth) / 60, 15, 80);
     const statesMod =
@@ -37,7 +34,6 @@ const flagsRenderer = (): void => {
 
   const flagSize = getFlagSize();
 
-  // Build flag nodes dari state data
   const flagNodes: FlagNode[] = validStates.map((state) => {
     const [x, y] = state.pole || pack.cells.p[state.center!];
     return {
@@ -48,7 +44,6 @@ const flagsRenderer = (): void => {
     };
   });
 
-  // Render flag images
   const flagString = flagNodes
     .map(
       (d) =>
