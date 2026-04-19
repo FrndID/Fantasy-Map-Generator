@@ -1,10 +1,10 @@
 declare global {
-  var uploadStateFlagFunction: () => void;
-  var clearAllFlagsFunction: () => void;
-  var updateFlagStateSelectFunction: () => void;
+  var uploadStateFlag: () => void;
+  var clearAllFlags: () => void;
+  var updateFlagStateSelect: () => void;
 }
 
-const updateFlagStateSelectFunction = (): void => {
+const updateFlagStateSelectImpl = (): void => {
   const select = document.getElementById("flagStateSelect") as HTMLSelectElement;
   if (!select) return;
 
@@ -20,7 +20,7 @@ const updateFlagStateSelectFunction = (): void => {
   });
 };
 
-const uploadStateFlagFunction = (): void => {
+const uploadStateFlagImpl = (): void => {
   const stateSelect = document.getElementById("flagStateSelect") as HTMLSelectElement;
   const imageInput = document.getElementById("flagImageInput") as HTMLInputElement;
 
@@ -44,13 +44,13 @@ const uploadStateFlagFunction = (): void => {
 
     tip(`Flag uploaded for ${pack.states[stateId].name}!`, true, "success");
     imageInput.value = "";
-    updateFlagStateSelectFunction();
+    updateFlagStateSelect();
   };
 
   reader.readAsDataURL(imageInput.files[0]);
 };
 
-const clearAllFlagsFunction = (): void => {
+const clearAllFlagsImpl = (): void => {
   pack.states.forEach((state) => {
     if (state.i && !state.removed) {
       state.flag = undefined;
@@ -59,14 +59,9 @@ const clearAllFlagsFunction = (): void => {
 
   drawFlags();
   tip("All flags cleared!", true, "success");
-  updateFlagStateSelectFunction();
+  updateFlagStateSelect();
 };
 
-window.uploadStateFlagFunction = uploadStateFlagFunction;
-window.clearAllFlagsFunction = clearAllFlagsFunction;
-window.updateFlagStateSelectFunction = updateFlagStateSelectFunction;
-
-// Shortcuts for HTML onclick
-window.uploadStateFlag = uploadStateFlagFunction;
-window.clearAllFlags = clearAllFlagsFunction;
-window.updateFlagStateSelect = updateFlagStateSelectFunction;
+window.updateFlagStateSelect = updateFlagStateSelectImpl;
+window.uploadStateFlag = uploadStateFlagImpl;
+window.clearAllFlags = clearAllFlagsImpl;
