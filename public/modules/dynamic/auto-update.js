@@ -360,6 +360,10 @@ export function resolveVersionConflicts(mapVersion) {
     regenerateEmblems();
     toggleEmblems();
 
+        // v1.5+ added flags
+    flags = viewbox.insert("g", "#labels").attr("id", "flags").style("display", "none");
+    flags.append("g").attr("id", "stateFlags").attr("data-size", 1);
+
     // v1.5 changed releif icons data
     terrain.selectAll("use").each(function () {
       const type = this.getAttribute("data-type") || this.getAttribute("xlink:href");
