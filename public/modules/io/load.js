@@ -345,6 +345,7 @@ async function parseLoadedData(data, mapVersion) {
       prec = viewbox.select("#prec");
       population = viewbox.select("#population");
       emblems = viewbox.select("#emblems");
+      flags = viewbox.select("#flags")
       labels = viewbox.select("#labels");
       icons = viewbox.select("#icons");
       burgIcons = icons.select("#burgIcons");
@@ -365,6 +366,11 @@ async function parseLoadedData(data, mapVersion) {
       if (!emblems.size()) {
         emblems = viewbox.insert("g", "#labels").attr("id", "emblems").style("display", "none");
       }
+        if (!flags.size()) {
+    flags = viewbox.insert("g", "#labels").attr("id", "flags").style("display", "none");
+    flags.append("g").attr("id", "stateFlags").attr("data-size", 1);
+  }
+}
     }
 
     {
