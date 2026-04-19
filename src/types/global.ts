@@ -35,6 +35,7 @@ declare global {
   var rivers: Selection<SVGElement, unknown, null, undefined>;
   var oceanLayers: Selection<SVGGElement, unknown, null, undefined>;
   var emblems: Selection<SVGElement, unknown, null, undefined>;
+  var flags: Selection<SVGGElement, unknown, null, undefined>;
   var svg: Selection<SVGSVGElement, unknown, null, undefined>;
   var ice: Selection<SVGGElement, unknown, null, undefined>;
   var labels: Selection<SVGGElement, unknown, null, undefined>;
