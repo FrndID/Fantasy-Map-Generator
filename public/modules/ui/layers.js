@@ -932,6 +932,20 @@ function toggleEmblems(event) {
   }
 }
 
+function toggleFlags(event) {
+  if (!layerIsOn("toggleFlags")) {
+    turnButtonOn("toggleFlags");
+    if (!flags.selectAll("image").size()) drawFlags();
+    $("#flags").fadeIn();
+    invokeActiveZooming();
+    if (event && isCtrlClick(event)) editStyle("flags");
+  } else {
+    if (event && isCtrlClick(event)) return editStyle("flags");
+    $("#flags").fadeOut();
+    turnButtonOff("toggleFlags");
+  }
+}
+
 function toggleVignette(event) {
   if (!layerIsOn("toggleVignette")) {
     turnButtonOn("toggleVignette");
