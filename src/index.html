@@ -2155,6 +2155,34 @@
             </button>
             <button id="editUnitsButton" data-tip="Click to open Units Editor" data-shortcut="Shift + Q">Units</button>
             <button id="editZonesButton" data-tip="Click to open Zones Editor" data-shortcut="Shift + Z">Zones</button>
+                      <p>Upload Flags for States:</p>
+          <button
+            id="uploadFlagsButton"
+            class="icon-upload"
+            onclick="openFlagUploadDialog()"
+            data-tip="Click to upload custom flags for states"
+          >
+            Upload Flags
+          </button>
+          <div id="flagUploadDialog" style="display: none; padding: 10px; border: 1px solid #ccc; margin-top: 10px;">
+            <p style="margin: 5px 0;">Select State:</p>
+            <select id="flagStateSelect" style="width: 100%; padding: 5px;"></select>
+            <p style="margin: 5px 0; margin-top: 10px;">Choose Image:</p>
+            <input 
+              type="file" 
+              id="flagFileInput" 
+              accept="image/*" 
+              style="width: 100%; padding: 5px; margin-bottom: 10px;"
+            />
+            <img 
+              id="flagPreview" 
+              style="max-width: 100%; max-height: 100px; margin: 10px 0; display: none; border: 1px solid #999;"
+            />
+            <div style="display: flex; gap: 10px; margin-top: 10px;">
+              <button onclick="applyFlagToState()" style="flex: 1; padding: 8px;">Apply Flag</button>
+              <button onclick="closeFlagUploadDialog()" style="flex: 1; padding: 8px;">Cancel</button>
+            </div>
+          </div>
           </div>
 
           <div class="separator">Regenerate</div>
