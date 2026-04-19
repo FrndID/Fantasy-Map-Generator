@@ -205,13 +205,12 @@ function drawLayers() {
   if (layerIsOn("toggleIce")) drawIce();
   if (layerIsOn("togglePrecipitation")) drawPrecipitation();
   if (layerIsOn("toggleEmblems")) drawEmblems();
+  if (layerIsOn("toggleFlags")) drawFlags(); // ✅ TAMBAHKAN BARIS INI
   if (layerIsOn("toggleLabels")) drawLabels();
   if (layerIsOn("toggleBurgIcons")) drawBurgIcons();
   if (layerIsOn("toggleMilitary")) drawMilitary();
   if (layerIsOn("toggleMarkers")) drawMarkers();
   if (layerIsOn("toggleRulers")) rulers.draw();
-  // scale bar
-  // vignette
 }
 
 function toggleHeight(event) {
@@ -932,6 +931,7 @@ function toggleEmblems(event) {
   }
 }
 
+// ✅ TAMBAHKAN FUNGSI BARU INI SETELAHNYA:
 function toggleFlags(event) {
   if (!layerIsOn("toggleFlags")) {
     turnButtonOn("toggleFlags");
@@ -979,6 +979,7 @@ function turnButtonOn(el) {
   byId(el).classList.remove("buttonoff");
   getCurrentPreset();
 }
+
 
 // move layers on mapLayers dragging (jquery sortable)
 $("#mapLayers").sortable({items: "li:not(.solid)", containment: "parent", cancel: ".solid", update: moveLayer});
