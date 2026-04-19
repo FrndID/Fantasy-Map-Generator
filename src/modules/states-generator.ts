@@ -35,6 +35,7 @@ export interface State {
   center: number;
   culture: number;
   coa: any;
+  flag?: string;
   lock?: boolean;
   removed?: boolean;
   pole?: [number, number];
